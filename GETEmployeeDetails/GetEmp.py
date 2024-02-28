@@ -8,7 +8,7 @@ import pymssql
 def main(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Python HTTP trigger function processed a request.')
 
-    # Retrieve the EmployeeID from query parameters or request body and we get response
+    # Retrieve the EmployeeID from query parameters or request body and we get response i am testing a branch
     employee_id = req.params.get('EmployeeID')
     if not employee_id:
         try:
