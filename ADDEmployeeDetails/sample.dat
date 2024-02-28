@@ -1,0 +1,20 @@
+{
+  "EmployeeID": "String",
+  "Lastname": "String",
+  "Firstname": "String",
+  "MiddleInitial": "String",
+  "BirthDate": "String",
+  "SSN": "String",
+  "JobTitle": "String",
+  "Worklocation": "String",
+  "WorkDeskID": "String",
+  "Workphone": "String",
+  "CellPhone": "String",
+  "Organization": "String",
+  "SupervisorName": "String",
+  "SupervisorJobTitle": "String",
+  "SupervisorContactNumber": "String",
+  "HireDate": "String",
+  "AnnualSalary": "String",
+  "ResidenceAddress": "String"
+}
