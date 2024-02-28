@@ -8,7 +8,7 @@ import pymssql
 def main(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Python HTTP trigger function processed a request.')
 
-    # Retrieve the EmployeeID from query parameters or request body and we get response
+    # Retrieve the EmployeeID from query parameters or request body
     employee_id = req.params.get('EmployeeID')
     if not employee_id:
         try:
@@ -32,20 +32,17 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
     try:
         with conn.cursor(as_dict=True) as cursor:
-            # Execute the SQL query to retrieve employee details
-            query = "SELECT * FROM Employee WHERE EmployeeID = %s"
+            # Execute the SQL query to terminate employee status
+            query = "UPDATE Employee SET EmployeeStatus = 'Terminated' WHERE EmployeeID = %s"
             logging.info(f"SQL query: {query}")
             cursor.execute(query, (employee_id,))
-            rows = cursor.fetchall()
+            conn.commit()
 
-            if rows:
-                logging.info(f"Number of rows retrieved: {len(rows)}")
-                # Convert rows to a list of dictionaries
-                rows_dict = [dict(row) for row in rows]
-                # Return the rows as JSON response
-                return func.HttpResponse(body=json.dumps(rows_dict), mimetype='application/json')
+            if cursor.rowcount > 0:
+                logging.info("Employee status terminated.")
+                return func.HttpResponse("Employee status terminated successfully.")
             else:
-                logging.info("No rows retrieved.")
+                logging.info("No rows updated.")
                 return func.HttpResponse("Employee not found.", status_code=404)
     except pymssql.Error as e:
         logging.error(f"Database connection or query error: {str(e)}")
